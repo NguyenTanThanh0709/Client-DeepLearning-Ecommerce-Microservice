@@ -55,6 +55,7 @@ export class Http {
           console.log('response', response)
           const dataResponse = response.data as AuthResponse
           localStorage.setItem('id', dataResponse.data.user.id.toString())
+          localStorage.setItem('email', dataResponse.data.user.email.toString())
           this.accessToken = dataResponse.data.access_token
           this.refreshToken = dataResponse.data.refresh_token
           setAccessTokenToLS(this.accessToken)

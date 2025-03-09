@@ -75,14 +75,14 @@ const PromotionList: React.FC = () => {
 
         <button
           onClick={handleDateFilter}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+          className="px-4 py-2 bg-blue-500 text-orange rounded-md hover:bg-orange-600 focus:outline-none"
         >
           Lọc
         </button>
 
         <button
           onClick={handleDateFilter1}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+          className="px-4 py-2 bg-blue-500 text-orange rounded-md hover:bg-orange-600 focus:outline-none"
         >
           Reset
         </button>
@@ -93,7 +93,7 @@ const PromotionList: React.FC = () => {
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-lg font-semibold">{promotion.name}</h3>
               <button
-                className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+                className="px-2 py-1 bg-blue-500 text-orange rounded hover:bg-orange-600 focus:outline-none"
                 onClick={() => navigate(`/seller-promiton/${promotion.id}`)}
               >
                 Chỉnh sửa

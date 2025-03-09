@@ -127,7 +127,7 @@ export default function Order() {
         />
         <button
           onClick={handleSearch}
-          className='ml-2 p-2 bg-blue-500 text-white rounded-md'
+          className='ml-2 p-2 bg-orange-500 text-white rounded-md'
         >
           Tìm
         </button>
@@ -194,7 +194,7 @@ export default function Order() {
                 </span>
               </div>
               <div className='col-span-2 flex items-center justify-center space-x-2'>
-                <button onClick={() => onViewDetails(purchase)} className='bg-blue-500 text-white rounded px-4 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
+                <button onClick={() => onViewDetails(purchase)} className='bg-orange-500 text-white rounded px-4 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
                   Xem chi tiết
                 </button>
                 {purchase.status === 'waitForConfirmation' && (

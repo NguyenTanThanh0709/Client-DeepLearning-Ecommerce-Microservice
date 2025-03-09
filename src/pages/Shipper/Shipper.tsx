@@ -147,7 +147,7 @@ const Shipper: React.FC = () => {
             <div className="mt-6 text-center">
               <button
                 onClick={() => handleViewOrders(shop.id)}
-                className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
+                className="bg-orange-600 text-white font-semibold py-2 px-4 rounded hover:bg-orange-700 transition duration-300"
               >
                 Xem Danh Sách Đơn Hàng
               </button>

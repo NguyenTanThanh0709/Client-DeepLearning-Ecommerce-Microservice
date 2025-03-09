@@ -35,6 +35,9 @@ export default function Payment() {
   const id = localStorage.getItem('id');
   const userId = id !== null ? parseInt(id) : 0;
 
+  const email = localStorage.getItem('id');
+  const userEmail = email !== null ? email : "0@gmail.com";
+
   const { data: profileData, refetch } = useQuery({
     queryKey: ['profile', userId],
     queryFn: () => userApi.getProfile(userId),
@@ -77,10 +80,12 @@ export default function Payment() {
     return {
       id: null, // generate or provide a valid order ID
       customerId: userId,
-      shopId: checkedPurchases[0].product.idShop, // provide the correct shop ID
+      shopId: checkedPurchases[0].product.idShop, // provide the correct shop ID userEmail
       totalMoney: totalmoney,
       status: 'waitForConfirmation', // initial order status
       orderItems: orderItems,
+      statusPayment: paymentMethod,
+      CustomerEmail: userEmail,
       orderDate: new Date().toISOString() // current date and time
     };
   };
@@ -104,13 +109,13 @@ export default function Payment() {
   const mutation = useMutation(purchaseApi.addOrder, {
     onSuccess: (data:string) => {
       toast.success("Đặt Hàng sản phẩm thành công");  
+      console.log('Order Data:', data);
       // thực hiện call api tiếp trong này có được không
           // Submit the orderData to your backend or handle it as needed
       if(paymentMethod == 'cod'){
         toast.success("Thanh toán sản phẩm khi nhận hàng")
         navigate('/user/purchase');
       }else{
-
         const paymentData = { id: data, totalMoney: totalmoney }; // Thay thế bằng dữ liệu thực tế
         console.log('Payment Data:', paymentData);
         mutationmomo.mutate(paymentData);

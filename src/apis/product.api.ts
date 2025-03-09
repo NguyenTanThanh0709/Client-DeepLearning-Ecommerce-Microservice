@@ -14,11 +14,11 @@ const productApi = {
 
   
   getProducts(params: ProductListConfig) {
-    return http.get<SuccessResponse<ProductList>>(`${URL}/search`, { params })
+    return http.get<SuccessResponse<ProductList>>(`${URL}/search-elastic`, { params })
   },
 
   getProductDetail(id: string) {
-    return http.get<SuccessResponse<Product>>(`${URL}/${id}`)
+    return http.get<SuccessResponse<Product>>(`${URL}/${id}/ElasticSearch`)
   },
   
 

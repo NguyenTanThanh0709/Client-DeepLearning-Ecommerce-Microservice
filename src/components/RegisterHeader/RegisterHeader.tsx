@@ -16,9 +16,9 @@ export default function RegisterHeader() {
             </svg>
           </Link> */}
           <Link to='/' className='col-span-2'>
-          <p className='mt-[10px] mr-[18px] h-[42px] pt-2 fill-white lg:h-11'>HỆ THỐNG THƯƠNG MẠI ĐIỆN TỬ</p> 
+          <p className='mt-[10px] mr-[18px] h-[42px] pt-2 text-orange fill-white lg:h-11'>HỆ THỐNG THƯƠNG MẠI ĐIỆN TỬ</p> 
           </Link>
-          <div className='ml-5 text-xl lg:text-2xl'>{isRegister ? 'Register' : 'Login'}</div>
+          <div className='ml-5 text-xl lg:text-2xl text-orange'>{isRegister ? 'Register' : 'Login'}</div>
         </nav>
         <a
           href='https://help.shopee.vn/vn/s'

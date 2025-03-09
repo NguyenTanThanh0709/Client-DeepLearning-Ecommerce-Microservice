@@ -104,7 +104,7 @@ export default function Header() {
 
 
   return (
-    <div className='sticky h-32 top-0 z-20 bg-[linear-gradient(-180deg,#f53d2d,#f63)]  pt-2 text-white transition-[transform.2scubic-bezier(.4,0,.2,1)]'>
+    <div className='sticky h-32 top-0 z-20 bg-[linear-gradient(-180deg,#1e3a8a,#3b82f6)]  pt-2 text-white transition-[transform.2scubic-bezier(.4,0,.2,1)]'>
       <div className='container '>
         <div className='flex items-center justify-between'>
           <div className='flex justify-start gap-x-3'>
@@ -228,7 +228,7 @@ export default function Header() {
           </Link> */}
 
           <Link to='/' className='col-span-2'>
-          <p className='mt-[10px] mr-[18px] h-[42px] pt-5 fill-white lg:h-11'>HỆ THỐNG THƯƠNG MẠI ĐIỆN TỬ</p> 
+          <p className='mt-[10px] mr-[18px] h-[42px] pt-5  fill-white lg:h-11'>HỆ THỐNG THƯƠNG MẠI ĐIỆN TỬ</p> 
           </Link>
 
           <form className='col-span-9' onSubmit={onSubmitSearch}>

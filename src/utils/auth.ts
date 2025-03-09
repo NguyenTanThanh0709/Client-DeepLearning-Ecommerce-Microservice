@@ -13,6 +13,8 @@ export const clearLS = () => {
   localStorage.removeItem('accessToken')
   localStorage.removeItem('refreshToken')
   localStorage.removeItem('profile')
+  localStorage.removeItem('id')
+  localStorage.removeItem('email')
   const clearLSEvent = new Event('clearLS')
   localStorageEventTarget.dispatchEvent(clearLSEvent)
 }

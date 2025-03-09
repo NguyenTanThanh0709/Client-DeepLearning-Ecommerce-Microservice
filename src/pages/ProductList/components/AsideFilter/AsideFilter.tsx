@@ -121,7 +121,7 @@ const mutation1 = useMutation<ImagePayload, Error, ImagePayload>(
         pathname: path.home,
         search: createSearchParams({
           ...queryConfig,
-          deeplearning: data1
+          deeplearning: JSON.stringify(data1.image)
         }).toString()
       })
     },
@@ -181,31 +181,41 @@ const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
   return (
     <div className='sticky top-[8rem] rounded-sm border-2 py-4'>
 
+<div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-lg flex flex-col items-center">
+      {/* Tiêu đề */}
+      <h1 className="text-xs text-white bg-green-500 rounded-md px-2 py-1">
+        Tìm sản phẩm theo hình ảnh
+      </h1>
 
-<div className="mt-4 ml-4 p-2 flex items-center" style={{ marginLeft: '-130px' }}>
-  <form className="relative bg-white rounded-lg shadow-lg p-2 flex items-center space-x-2 w-80"> {/* Thay đổi width ở đây */}
-    <h1 className="text-white bg-green-500 rounded px-1 py-0.5 text-xs">Tìm sản phẩm theo hình ảnh</h1>
-    <input 
-      type="file" 
-      accept="image/*" 
-      onChange={handleImageChange} 
-      className="border border-gray-300 rounded p-1 focus:ring-2 focus:ring-green-500 text-sm"
-    />
-    {loading && <TailSpin height="30" width="30" color="blue" ariaLabel="loading" />}
-    <button 
-      type="button"
-      onClick={handleImageUpload}
-      className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded transition duration-300 text-sm"
-    >
-      Search
-    </button>
-  </form>
-  {preview && (
-    <div className="ml-2">
-      <img src={preview} alt="Selected" className="w-24 h-24 object-cover rounded-lg shadow-md"/>
+      {/* Form */}
+      <div className="mt-2 flex items-center space-x-2">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="border border-gray-300 rounded-md text-xs p-1 w-40"
+        />
+        {loading ? (
+          <TailSpin height="20" width="20" color="blue" ariaLabel="loading" />
+        ) : (
+          <button
+            type="button"
+            onClick={handleImageUpload}
+            className="bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium py-1 px-3 rounded-md"
+          >
+            Tìm kiếm
+          </button>
+        )}
+      </div>
+
+      {/* Xem trước ảnh */}
+      {preview && (
+        <div className="mt-2">
+          <img src={preview} alt="Selected" className="w-20 h-20 object-cover rounded-md shadow-md" />
+        </div>
+      )}
     </div>
-  )}
-</div>
+
 
 
 

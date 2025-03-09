@@ -86,10 +86,10 @@ export default function ProductList() {
           <h1 className='my-2'>SẢN PHẨM</h1>
         </div>
         <div>
-          <button className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 mx-2 px-4 rounded">
+          <button className="bg-red-500 hover:bg-orange-700 text-white font-bold py-2 mx-2 px-4 rounded">
             Công cụ xử lý hàng loạt
           </button>
-          <button onClick={() => navigate('/seller/product/0')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mx-2 px-4 rounded">
+          <button onClick={() => navigate('/seller/product/0')} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 mx-2 px-4 rounded">
             + Thêm sản phẩm
           </button>
         </div>

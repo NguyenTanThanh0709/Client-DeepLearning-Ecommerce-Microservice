@@ -173,11 +173,11 @@ useEffect(() => {
 
           <div className="md:col-span-2 flex justify-end">
           {!isUpdate ? (
-            <button type="button" onClick={handleSave} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button type="button" onClick={handleSave} className="bg-blue-500 hover:bg-orange-700 text-orange font-bold py-2 px-4 rounded">
               Ấn Lưu trước khi chuyển
             </button>
           ) : (
-            <button type="button" onClick={handleUpdate} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            <button type="button" onClick={handleUpdate} className="bg-green-500 hover:bg-green-700 text-orange font-bold py-2 px-4 rounded">
               Cập nhật sản phẩm
             </button>
           )}

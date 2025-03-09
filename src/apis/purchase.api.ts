@@ -26,7 +26,7 @@ const purchaseApi = {
   },
 
   getPurchases(id:string) {
-    return http.get<SuccessResponse<Purchase[]>>(`/api/v1/carts/carts-user/${id}`)
+    return http.get<SuccessResponse<Purchase[]>>(`/api/v1/carts/carts-user-v2/${id}`)
   },
   
   updatePurchase(body: { product_id: string; buy_count: number }) {

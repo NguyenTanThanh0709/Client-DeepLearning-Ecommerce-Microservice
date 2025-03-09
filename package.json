@@ -53,6 +53,7 @@
     "react-router-dom": "^6.8.1",
     "react-toastify": "^9.1.1",
     "recharts": "^2.12.7",
+    "shoppeadvance": "file:",
     "uui": "^1.0.7",
     "yup": "^1.0.0"
   },

@@ -53,8 +53,10 @@ export interface OrderRequest {
   id: number |null;
   customerId: number;
   shopId: number;
+  CustomerEmail: string;
   totalMoney: number;
   status: string; // Trạng thái hiện tại của đơn hàng (ví dụ: pending, paid, shipped, delivered, cancelled)
+  statusPayment: string; // Trạng thái hiện tại của đơn hàng (ví dụ: pending, paid, shipped, delivered, cancelled)
   orderItems: OrderItemRequest[];
   orderDate:string | '';
 }

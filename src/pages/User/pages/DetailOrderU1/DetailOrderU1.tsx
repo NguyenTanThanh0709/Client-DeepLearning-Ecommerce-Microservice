@@ -126,7 +126,7 @@ export default function DetailOrderU1() {
               </button>
               <button
                 onClick={handleSubmitReview}
-                className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700'
+                className='px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-700'
               >
                 Gửi đánh giá
               </button>

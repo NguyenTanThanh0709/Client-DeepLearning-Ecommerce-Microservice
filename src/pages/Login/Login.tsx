@@ -72,15 +72,15 @@ export default function Login() {
   )
 
   return (
-    <div className='h-[600px] bg-orange'>
+    <div className='h-[600px] bg-blue-400'>
       <Helmet>
         <title>Login | Shopee Clone</title>
         <meta name='description' content='Login | Shopee Clone' />
       </Helmet>
-      <div className='container bg-shopee bg-contain bg-center bg-no-repeat'>
+      <div className="container bg-[url('https://salt.tikicdn.com/ts/upload/df/48/21/b4d225f471fe06887284e1341751b36e.png')] bg-contain bg-center bg-no-repeat">
         <div className='grid grid-cols-1 py-12 lg:h-[470px] lg:grid-cols-5 lg:pr-10'>
           <div className='md:col-span-2 md:col-start-4 md:mx-8'>
-            <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit}>
+            <form className='rounded bg-white p-10  shadow-sm' onSubmit={onSubmit}>
               <div className='text-2xl'>Login</div>
               <Input
                 className='mt-6'

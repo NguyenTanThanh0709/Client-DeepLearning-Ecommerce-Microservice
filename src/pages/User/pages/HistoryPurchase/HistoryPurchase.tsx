@@ -139,7 +139,7 @@ export default function HistoryPurchase() {
         <p className='text-sm text-gray-500'>{`Ngày đặt: ${new Date(purchase.orderDate).toLocaleDateString()}`}</p>
       </div>
 <div className='flex flex-col space-y-4'>
-<button onClick={() => onViewDetails(purchase)} className='bg-blue-400 text-white rounded-full px-6 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
+<button onClick={() => onViewDetails(purchase)} className='bg-orange-400 text-white rounded-full px-6 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
         Xem chi tiết
       </button>
       <button

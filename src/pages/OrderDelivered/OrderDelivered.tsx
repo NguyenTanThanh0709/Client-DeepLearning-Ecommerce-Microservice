@@ -83,7 +83,7 @@ export default function OrderDelivered() {
         <p className='text-sm text-gray-500'>{`Ngày đặt: ${new Date(purchase.orderDate).toLocaleDateString()}`}</p>
       </div>
 <div className='flex flex-col space-y-4'>
-<button  onClick={() => handleIndelivery(purchase.id, 'delivered', purchase.totalMoney)}  className='bg-blue-400 text-white rounded-full px-6 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
+<button  onClick={() => handleIndelivery(purchase.id, 'delivered', purchase.totalMoney)}  className='bg-orange-400 text-white rounded-full px-6 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
         Đã giao và thanh toán
       </button>
       <button

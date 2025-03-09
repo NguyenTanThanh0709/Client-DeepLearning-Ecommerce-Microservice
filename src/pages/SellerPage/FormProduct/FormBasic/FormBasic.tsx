@@ -101,6 +101,7 @@ const ProductForm: React.FC<FormBasicProps> = ({ formData, onFormDataChange , is
       image: uploadedImages[0], // Use the first uploaded image as the main image
     };
 
+    console.log(data1);
     onFormDataChange(data1);
   };
 
@@ -227,11 +228,11 @@ const ProductForm: React.FC<FormBasicProps> = ({ formData, onFormDataChange , is
                 
           {loading && <TailSpin height="50" width="50" color="blue" ariaLabel="loading" />}
           {!isUpdate ? (
-            <button type="button" onClick={handleSave} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button type="button" onClick={handleSave} className="bg-blue-500 hover:bg-orange-700 text-orange font-bold py-2 px-4 rounded">
               Ấn Lưu trước khi chuyển
             </button>
           ) : (
-            <button type="button" onClick={handleUpdate} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            <button type="button" onClick={handleUpdate} className="bg-green-500 hover:bg-green-700 text-orange font-bold py-2 px-4 rounded">
               Cập nhật sản phẩm
             </button>
           )}

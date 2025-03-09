@@ -25,7 +25,7 @@ export default function CartHeader() {
                   </g>
                 </svg> */}
                 <Link to='/' className='col-span-2'>
-          <p className='mt-[10px] mr-[18px] h-[42px] pt-5  fill-white lg:h-11'>HỆ THỐNG THƯƠNG MẠI ĐIỆN TỬ</p> 
+          <p className='mt-[10px] mr-[18px] h-[42px] pt-5 text-orange  fill-white lg:h-11'>HỆ THỐNG THƯƠNG MẠI ĐIỆN TỬ</p> 
           </Link>
               </div>
               <div className='mx-4 h-6 w-[1px] bg-orange md:h-8' />

@@ -86,10 +86,10 @@ export const AuthSchema = yup.object({
     .max(160, 'Email must have at most 160 characters'),
   password: yup
     .string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-      'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
-    )
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+    //   'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+    // )
     .required('Password does not exist')
     .min(6, 'Password must have at least 6 characters')
     .max(20, 'Password must have at most 20 characters'),
