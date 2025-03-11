@@ -12,7 +12,6 @@ import DetailOrder from './pages/SellerPage/DetailOrder'
 import PromotionList from './pages/SellerPage/PromotionList/PromotionList'
 import DetailOrderU1 from './pages/User/pages/DetailOrderU1'
 import Shipper from './pages/Shipper'
-import OrderDelivered from './pages/OrderDelivered'
 
 
 const Login = lazy(() => import('./pages/Login'))
@@ -23,7 +22,6 @@ const ProductDetail = lazy(() => import('./pages/ProductDetail'))
 const Cart = lazy(() => import('./pages/Cart'))
 const ChangePassword = lazy(() => import('./pages/User/pages/ChangePassword'))
 const HistoryPurchase = lazy(() => import('./pages/User/pages/HistoryPurchase'))
-const DetailOrderU = lazy(() => import('./pages/User/pages/DetailOrderU'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Payment = lazy(() => import('./pages/Payment'))
 const Order = lazy(() => import('./pages/SellerPage/Order'))
@@ -97,12 +95,6 @@ export default function useRouteElements() {
           path: path.shipper,
           element: (
             <Shipper/>
-          )
-        },
-        {
-          path: path.OrderDelivered,
-          element: (
-            <OrderDelivered/>
           )
         },
         {
@@ -228,10 +220,6 @@ export default function useRouteElements() {
             {
               path: path.historyPurchase,
               element: <HistoryPurchase />
-            },
-            {
-              path: path.historyPurchaseDetail,
-              element: <DetailOrderU />
             }
           ]
         }

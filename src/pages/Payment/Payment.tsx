@@ -35,7 +35,7 @@ export default function Payment() {
   const id = localStorage.getItem('id');
   const userId = id !== null ? parseInt(id) : 0;
 
-  const email = localStorage.getItem('id');
+  const email = localStorage.getItem('email');
   const userEmail = email !== null ? email : "0@gmail.com";
 
   const { data: profileData, refetch } = useQuery({
@@ -74,7 +74,8 @@ export default function Payment() {
       idSizeQuantity: purchase.id_size_quantity_color, // assuming this field holds the size quantity ID
       promotionId: appliedPromotions[purchase.product.id] || 0, // cho phép null nếu là các sản phẩm k có promotion
       quantity: purchase.buy_count,
-      note: notes[index] || '' // include the note for each item
+      note: notes[index] || '' // include the note for each item,
+      ,name: purchase.product.name
     }));
 
     return {
@@ -85,7 +86,7 @@ export default function Payment() {
       status: 'waitForConfirmation', // initial order status
       orderItems: orderItems,
       statusPayment: paymentMethod,
-      CustomerEmail: userEmail,
+      customerEmail: userEmail,
       orderDate: new Date().toISOString() // current date and time
     };
   };
@@ -107,30 +108,42 @@ export default function Payment() {
   );
 
   const mutation = useMutation(purchaseApi.addOrder, {
-    onSuccess: (data:string) => {
-      toast.success("Đặt Hàng sản phẩm thành công");  
-      console.log('Order Data:', data);
-      // thực hiện call api tiếp trong này có được không
-          // Submit the orderData to your backend or handle it as needed
-      if(paymentMethod == 'cod'){
-        toast.success("Thanh toán sản phẩm khi nhận hàng")
-        navigate('/user/purchase');
-      }else{
-        const paymentData = { id: data, totalMoney: totalmoney }; // Thay thế bằng dữ liệu thực tế
-        console.log('Payment Data:', paymentData);
-        mutationmomo.mutate(paymentData);
-
+    onSuccess: (data: string) => {
+      toast.success("Đặt hàng sản phẩm thành công");
+      console.log("Order Data:", data);
+  
+      if (paymentMethod === "cod") {
+        toast.success("Thanh toán sản phẩm khi nhận hàng");
+        navigate("/user/purchase");
+      } else {
+        const paymentData = { id: data, totalMoney: totalmoney };
+        console.log("Payment Data:", paymentData);
+  
+        mutationmomo.mutate(paymentData, {
+          onSuccess: () => {
+            toast.success("Thanh toán online thành công");
+            navigate("/user/purchase");
+          },
+          onError: (error) => {
+            toast.error("Thanh toán online thất bại: " + error.response.data);
+            console.error("Payment Error:", error);
+          },
+        });
       }
     },
     onError: (error) => {
-      toast.error("Đặt Hàng sản phẩm không thành công");
-    }
+      toast.error("Đặt hàng sản phẩm không thành công: " + error.response.data);
+      console.error("Order Error:", error);
+    },
   });
+  
 
   const handleOrderSubmit = () => {
 
     const orderData = createOrderData();
+    orderData.customerEmail  = localStorage.getItem('email')
     console.log('Order Data:', orderData);
+    
     if(profile?.city == null || profile?.district == null || profile?.ward == null){
       toast.warning("Vui lòng cập nhật địa chỉ của bạn trước khi đặt hàng")
       return

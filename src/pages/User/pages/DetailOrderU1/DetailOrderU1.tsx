@@ -3,7 +3,7 @@ import { formatCurrency, generateNameId } from 'src/utils/utils';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
 import purchaseApi from 'src/apis/purchase.api';
-import { OrderItemRequest, OrderRequest } from 'src/constants/contant';
+import { OrderItemRequest, OrderRequest, OrderRequestFull, OrderItemDtoReponse } from 'src/constants/contant';
 import { OrderItem } from 'src/types/order.type';
 import { Link } from 'react-router-dom';
 import path from 'src/constants/path';
@@ -12,25 +12,27 @@ import productApi from 'src/apis/product.api';
 export default function DetailOrderU1() {
   const location = useLocation();
   const { purchase } = location.state as { purchase: OrderRequest };
-  const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
+  const [orderItems, setOrderItems] = useState<OrderItemDtoReponse[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentReviewItem, setCurrentReviewItem] = useState<OrderItem | null>(null);
+  const [currentReviewItem, setCurrentReviewItem] = useState<OrderItemDtoReponse | null>(null);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(1);
 
   // Fetch order details using useQuery
   const { refetch } = useQuery(
     ['orderDetails', purchase.id],
-    () => purchaseApi.getOrderDetailItem(purchase.orderItems),
+    () => purchaseApi.getOrderDetailItem(purchase.id as number), // Ép kiểu an toàn
     {
+      enabled: purchase.id !== null, // Chỉ gọi API khi id không phải null
       onSuccess: (response) => {
-        setOrderItems(response.data);
+        setOrderItems(response.data.orderItems || []);
       },
       onError: (error) => {
         console.error('Failed to fetch order items:', error);
       },
     }
   );
+  
 
   const mutation = useMutation({
     mutationFn: (data: { id: string; status: string }) => {
@@ -52,10 +54,7 @@ export default function DetailOrderU1() {
     mutation.mutate({ id: orderId, status: newStatus });
   };
 
-  const handleOpenModal = (item: OrderItem) => {
-    setCurrentReviewItem(item);
-    setIsModalOpen(true);
-  };
+
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -76,7 +75,7 @@ export default function DetailOrderU1() {
 
     const data = {
       idCustomer,
-      productId: currentReviewItem?.product.id || '',
+      productId: currentReviewItem?.productData.id || '',
       comment,
       rating,
     };
@@ -143,27 +142,28 @@ export default function DetailOrderU1() {
               <Link
                 className='h-20 w-20 flex-shrink-0 '
                 to={`${path.home}${generateNameId({
-                  name: item.product.name,
-                  id: item.product.id.toString()
+                  name: item.productData?.name ?? 'Unknown Product',
+                  id: item.productData?.id?.toString() ?? '0'
                 })}`}
+                
               >
-                <img src={item.product.image} alt={item.product.name} className='w-24 h-24 object-cover rounded-lg' />
+                <img src={item.productData.image} alt={item.productData.name} className='w-24 h-24 object-cover rounded-lg' />
               </Link>
               <div className='ml-4 flex-grow p-6 bg-white border border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300'>
-                <h4 className='text-2xl font-bold text-blue-800 mb-3'>{item.product.name}</h4>
-                <p className='text-base text-gray-700 mb-2'><span className='font-semibold'>Mô tả:</span> {item.product.description}</p>
-                <p className='text-base text-gray-700 mb-2'><span className='font-semibold'>Danh mục:</span> {item.product.category.name}</p>
-                <p className='text-lg font-semibold text-blue-600 mb-2'>Giá: ₫{formatCurrency(item.product.price)}</p>
+                <h4 className='text-2xl font-bold text-blue-800 mb-3'>{item.productData.name}</h4>
+                <p className='text-base text-gray-700 mb-2'><span className='font-semibold'>Mô tả:</span> {item.productData.description}</p>
+                <p className='text-base text-gray-700 mb-2'><span className='font-semibold'>Danh mục:</span> {item.productData.categoryId}</p>
+                <p className='text-lg font-semibold text-blue-600 mb-2'>Giá: ₫{formatCurrency(item.productData.price)}</p>
                 <p className='text-base text-gray-700 mb-2'><span className='font-semibold'>Số lượng:</span> {item.quantity}</p>
                 <p className='text-base text-gray-700 mb-2'>
-                  <span className='font-semibold'>Màu:</span> {item.product.sizeQuantities.find(sq => sq.id === item.idSizeQuantity)?.color || 'N/A'}
+                  <span className='font-semibold'>Màu:</span> {item.SizeQuantityData?.color || 'N/A'}
                 </p>
                 <p className='text-base text-gray-700 mb-2'>
-                  <span className='font-semibold'>Kích cỡ:</span> {item.product.sizeQuantities.find(sq => sq.id === item.idSizeQuantity)?.size || 'N/A'}
+                  <span className='font-semibold'>Kích cỡ:</span> {item.SizeQuantityData?.size || 'N/A'}
                 </p>
-                {item.promotion && (
+                {item.promotionData && (
                   <p className='text-base text-red-600 mb-2'>
-                    <span className='font-semibold'>Khuyến mãi:</span> {item.promotion.name} - <span className='font-bold'>Giảm giá: ₫{formatCurrency(item.promotion.discountAmount)}</span>
+                    <span className='font-semibold'>Khuyến mãi:</span> {item.promotionData.name} - <span className='font-bold'>Giảm giá: ₫{formatCurrency(item.promotionData.discountAmount)}</span>
                   </p>
                 )}
                 <p className='text-base text-gray-700'>
@@ -172,18 +172,10 @@ export default function DetailOrderU1() {
               </div>
             </div>
             <div className='flex space-x-4 mt-4'>
-              {item.product.images.map((img, index) => (
+              {item.productData.images.map((img, index) => (
                 <img key={index} src={img} alt={`Product image ${index + 1}`} className='w-16 h-16 object-cover rounded-lg' />
               ))}
             </div>
-            {purchase.status === 'delivered' && (
-              <button
-                onClick={() => handleOpenModal(item)}
-                className='px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none mt-4'
-              >
-                Đánh giá sản phẩm
-              </button>
-            )}
 
 {purchase.status === 'waitForConfirmation' && (
               <button

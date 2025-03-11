@@ -1,3 +1,4 @@
+import { User } from '../types/user.type'
 export interface PaymentInfo {
   id: number;
   paymentDate: string;
@@ -47,13 +48,14 @@ export interface OrderItemRequest {
   promotionId?: number; // cho phép null nếu là các sản phẩm k có promotion
   quantity: number; // số lượng sản phẩm
   note: string;
+  name: string;
 }
 
 export interface OrderRequest {
   id: number |null;
   customerId: number;
   shopId: number;
-  CustomerEmail: string;
+  customerEmail: string| null;
   totalMoney: number;
   status: string; // Trạng thái hiện tại của đơn hàng (ví dụ: pending, paid, shipped, delivered, cancelled)
   statusPayment: string; // Trạng thái hiện tại của đơn hàng (ví dụ: pending, paid, shipped, delivered, cancelled)
@@ -61,6 +63,28 @@ export interface OrderRequest {
   orderDate:string | '';
 }
 
+
+
+export interface OrderRequestFull {
+  id: number |null;
+  customerData: User;
+  shopData: Shop;
+  CustomerEmail: string;
+  totalMoney: number;
+  status: string; // Trạng thái hiện tại của đơn hàng (ví dụ: pending, paid, shipped, delivered, cancelled)
+  payment: PaymentInfo; // Trạng thái hiện tại của đơn hàng (ví dụ: pending, paid, shipped, delivered, cancelled)
+  orderItems: OrderItemDtoReponse[];
+  orderDate:string | '';
+}
+
+export interface OrderItemDtoReponse{
+  id: number |null;
+  quantity: number |null;
+  note: string | '';
+  SizeQuantityData: SizeQuantityRequest;
+  promotionData:PromotionRequest;
+  productData:ProductRequest;
+}
 
 
 interface SizeQuantityRequest {

@@ -40,7 +40,7 @@ const Promotion: React.FC = () => {
   
   const [isUpdate, setIsUpdate] = useState(false);
   const { promotionId } = useParams<{ promotionId: string }>();
-const promotionId1 = promotionId ?? ''; // Use an empty string if promotionId is undefined
+  const promotionId1 = promotionId ?? ''; // Use an empty string if promotionId is undefined
 
 
   const { data: promotion } = useQuery({
@@ -48,7 +48,10 @@ const promotionId1 = promotionId ?? ''; // Use an empty string if promotionId is
     queryFn: () => productApi.getPromotion(promotionId1 as string),
     enabled: promotionId1 !== undefined, // Fetch khi id có giá trị khác undefined
     onSuccess: (data) => {
-      setIsUpdate(true); // Set to true if you're updating an existing product
+       // Set to true if you're updating an existing product
+       if( data.data.name !== undefined){
+        setIsUpdate(true);
+      }
       setProgramName(data.data.name);
       setStartDate(new Date(data.data.startDate).toISOString().split('T')[0]);
       setEndDate(new Date(data.data.endDate).toISOString().split('T')[0]);

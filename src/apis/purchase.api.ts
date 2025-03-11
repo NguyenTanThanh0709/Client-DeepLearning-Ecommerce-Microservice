@@ -1,5 +1,5 @@
 import { get } from 'lodash'
-import { OrderItemRequest, OrderRequest, PaymentInfo } from 'src/constants/contant'
+import { OrderItemRequest,OrderRequestFull, OrderRequest, PaymentInfo } from 'src/constants/contant'
 import { OrderItem } from 'src/types/order.type'
 import { Purchase, PurchaseListStatus } from 'src/types/purchase.type'
 import { SuccessResponse } from 'src/types/utils.type'
@@ -44,22 +44,23 @@ const purchaseApi = {
   addOrder(data: OrderRequest) {
     return http.post<string>(`/api/v1/purchases/orders/`, data).then((res) => res.data)
   },
-  addpayment(data:any){
-    return http.post<any>(`/api/v1/purchases/payments`, data).then((res) => res.data)
-  },
+
   getOrder(id:string, status:string){
-    return http.get<OrderRequest[]>(`/api/v1/purchases/orders/customer/${id}?status=${status}`)
+    return http.get<OrderRequestFull[]>(`/api/v1/purchases/orders/customer/${id}?status=${status}`)
   },
-  getOrderStatus(status:string){
-    return http.get<OrderRequest[]>(`/api/v1/purchases/orders/status/${status}`)
+
+  getOrderDetailItem(id:number){
+    return http.get<OrderRequestFull>(`/api/v1/purchases/orders/${id}`)
   },
+
   getOrderShop(id:string, status:string){
-    return http.get<OrderRequest[]>(`/api/v1/purchases/orders/shop/${id}?status=${status}`)
-  }
-  ,
-  getOrderDetailItem(data: OrderItemRequest[]){
-    return http.post<OrderItem[]>(`/api/v1/products/orders`, data)
+    return http.get<OrderRequestFull[]>(`/api/v1/purchases/orders/shop/${id}?status=${status}`)
   },
+
+  getOrderShipper(city:string, status:string){
+    return http.get<OrderRequestFull[]>(`/api/v1/purchases/orders/shipper?status=${status}&city=${city}`)
+  },
+
   // New method to update the order status
   updateOrderStatus(id: string, status: string) {
     return http.put<string>(`/api/v1/purchases/orders/${id}/status`, null, {

@@ -38,9 +38,7 @@ const path = {
 
 
 
-  shipper:'/shipper',
-  OrderDelivered:'/shipper/order-delivered',
-
+  shipper:'/shipper'
 
 } as const
 

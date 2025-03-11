@@ -133,6 +133,7 @@ const { data: productDetailData } = useQuery({
 
   const validateFormData = (data: ProductRequest) => {
     console.log(data);  
+    data.idShop = parseInt(localStorage.getItem("shopId") || "0", 10);
 
     // Kiểm tra tên sản phẩm
     if (!data.name || data.name.trim() === '') {
