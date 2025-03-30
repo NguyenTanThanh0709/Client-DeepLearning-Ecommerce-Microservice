@@ -12,8 +12,6 @@ import { Product as ProductType, ProductListConfig } from 'src/types/product.typ
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 import Product from '../ProductList/components/Product'
 import path from 'src/constants/path'
-import { Helmet } from 'react-helmet-async'
-import { convert } from 'html-to-text'
 import { Head } from 'src/components/head'
 import { ProductReview } from 'src/constants/contant'
 
@@ -77,7 +75,9 @@ const getProductIdsMutation = useMutation((id: string) => productApi.getProductR
   onSuccess: async (productIds) => {
     // Handle success of first API call
     try {
-      const productIds1 = productIds.data; // Extracting the string[] from AxiosResponse
+      const productIds1 = productIds.data.data; // Extracting the string[] from AxiosResponse
+      console.log(  )
+      console.log(productIds1)
       const productsResponse = await productApi.getListProductRecommentSystem(productIds1);
       setProductList(productsResponse.data);
     } catch (error) {
@@ -186,7 +186,9 @@ useEffect(() => {
       {
         onSuccess: (data) => {
           toast.success(data.data.message, { autoClose: 1000 })
-          queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
+          // queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
+          queryClient.invalidateQueries(['purchases']);
+          
         }
       }
     )

@@ -31,9 +31,37 @@ const ProductForm: React.FC<FormBasicProps> = ({ formData, onFormDataChange , is
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFiles(e.target.files);
+      const newFiles = Array.from(e.target.files);
+  
+      setFiles((prevFiles) => {
+        const dataTransfer = new DataTransfer();
+        if (prevFiles) {
+          Array.from(prevFiles).forEach((file) => dataTransfer.items.add(file));
+        }
+        newFiles.forEach((file) => dataTransfer.items.add(file));
+        return dataTransfer.files; // Tạo FileList mới
+      });
+  
+      const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+      setImagePreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
     }
   };
+  
+  const handleRemoveImage = (index: number) => {
+    setImagePreviews((prevPreviews) => prevPreviews.filter((_, i) => i !== index));
+  
+    setFiles((prevFiles) => {
+      if (!prevFiles) return null;
+  
+      const dataTransfer = new DataTransfer();
+      Array.from(prevFiles)
+        .filter((_, i) => i !== index)
+        .forEach((file) => dataTransfer.items.add(file));
+  
+      return dataTransfer.files; // Tạo FileList mới sau khi xóa
+    });
+  };
+  
 
   const handleUpload = async () => {
     if (files) {
@@ -177,12 +205,21 @@ const ProductForm: React.FC<FormBasicProps> = ({ formData, onFormDataChange , is
             </ul>
           </div>
           {imagePreviews.length > 0 && (
-            <div className="grid grid-cols-4 gap-4">
-              {imagePreviews.map((img, i) => (
-                <img className="w-64 h-32" src={img} alt={"image-" + i} key={i} />
-              ))}
-            </div>
-          )}
+  <div className="grid grid-cols-4 gap-4">
+    {imagePreviews.map((img, i) => (
+      <div key={i} className="relative w-32 h-32">
+        <img className="w-full h-full object-cover" src={img} alt={`image-${i}`} />
+        <button
+          className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
+          onClick={() => handleRemoveImage(i)}
+        >
+          X
+        </button>
+      </div>
+    ))}
+  </div>
+)}
+
         </div>
 
         <form className="p-4 space-y-4">

@@ -6,7 +6,7 @@ const URL = '/api/v1/products'
 const productApi = {
   
   getProductRecommentSystem(id:string){
-    return http.get<string[]>(`http://localhost:8086/api/v1/aggreations/${id}`)
+    return http.get<string[]>(`http://localhost:8086/api/v1/aggreations?iduser=${id}`)
   },
   getListProductRecommentSystem(data:string[]){
     return http.post<Product[]>(`/api/v1/products/by-ids`, data)

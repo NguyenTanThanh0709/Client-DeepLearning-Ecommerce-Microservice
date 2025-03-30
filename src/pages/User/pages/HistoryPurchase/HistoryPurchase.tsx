@@ -113,6 +113,7 @@ export default function HistoryPurchase() {
 
     const data = {
       idCustomer,
+      idOrderItem: currentReviewItem?.id || 0,
       productId: currentReviewItem?.productData.id || '',
       comment,
       rating,
@@ -229,7 +230,7 @@ export default function HistoryPurchase() {
               </button>
               <button
                 onClick={handleSubmitReview}
-                className='px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-700'
+                className='px-4 py-2 bg-red-500 text-white rounded hover:bg-orange-700'
               >
                 Gửi đánh giá
               </button>

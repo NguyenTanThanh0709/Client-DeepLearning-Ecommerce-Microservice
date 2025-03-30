@@ -128,6 +128,7 @@ const mutation1 = useMutation<ImagePayload, Error, ImagePayload>(
     onError: (error) => {
       console.error('API call failed:', error);
       alert('Failed to post image.');
+      setLoading(false);
     },
   }
 );
@@ -142,6 +143,7 @@ const handleImageUpload = async () => {
     mutation1.mutate(imagePayload);
   } else {
     alert('Image link is null. Please provide a valid link.');
+    
   }
 
   
@@ -201,7 +203,7 @@ const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
           <button
             type="button"
             onClick={handleImageUpload}
-            className="bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium py-1 px-3 rounded-md"
+            className="bg-lime-400 hover:bg-orange-600 text-black text-xs font-medium py-1 px-3 rounded-md"
           >
             Tìm kiếm
           </button>

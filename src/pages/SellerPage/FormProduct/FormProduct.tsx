@@ -136,22 +136,22 @@ const { data: productDetailData } = useQuery({
     data.idShop = parseInt(localStorage.getItem("shopId") || "0", 10);
 
     // Kiểm tra tên sản phẩm
-    if (!data.name || data.name.trim() === '') {
-      console.error("Product name is required.");
-      return false;
-    }
+    // if (!data.name || data.name.trim() === '') {
+    //   console.error("Product name is required.");
+    //   return false;
+    // }
   
-    // Kiểm tra mô tả sản phẩm
-    if (!data.description || data.description.trim() === '') {
-      console.error("Product description is required.");
-      return false;
-    }
+    // // Kiểm tra mô tả sản phẩm
+    // if (!data.description || data.description.trim() === '') {
+    //   console.error("Product description is required.");
+    //   return false;
+    // }
   
-    // Kiểm tra danh mục sản phẩm
-    if (data.categoryId <= 0) {
-      console.error("Valid category ID is required.");
-      return false;
-    }
+    // // Kiểm tra danh mục sản phẩm
+    // if (data.categoryId <= 0) {
+    //   console.error("Valid category ID is required.");
+    //   return false;
+    // }
   
     // Kiểm tra giá sản phẩm
     if (data.price <= 0) {

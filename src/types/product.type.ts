@@ -74,7 +74,7 @@ export interface ProductList {
 export interface ProductListConfig {
   page?: number | string
   limit?: number | string
-  sort_by?: 'createdAt' | 'price' | 'rating' | 'sold' | 'view'
+  sort_by?: 'createdAt' | 'price' | 'rating' | 'sold' | 'view' | 'id'
   order?: 'asc' | 'desc'
   exclude?: string
   rating_filter?: number | string

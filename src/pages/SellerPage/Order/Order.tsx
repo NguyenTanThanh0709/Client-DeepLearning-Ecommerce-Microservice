@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { OrderItemRequest, OrderRequest } from 'src/constants/contant'
+import { OrderItemRequest, OrderRequest, OrderRequestFull } from 'src/constants/contant'
 import path from 'src/constants/path';
 import { createSearchParams, Link, useNavigate } from 'react-router-dom';
 import { purchasesStatus } from 'src/constants/purchase';
@@ -68,7 +68,7 @@ export default function Order() {
     },
   });
 
-  const handleCancelOrder = (purchase: OrderRequest) => {
+  const handleCancelOrder = (purchase: OrderRequestFull) => {
     const orderId = purchase.id?.toString() || '0';
     const newStatus = 'cancelled';
     console.log(orderId, newStatus);
@@ -76,7 +76,7 @@ export default function Order() {
   };
 
 
-  const handleCancelOrder1 = (purchase: OrderRequest) => {
+  const handleCancelOrder1 = (purchase: OrderRequestFull) => {
     const orderId = purchase.id?.toString() || '0';
     const newStatus = 'waitForGetting';
     console.log(orderId, newStatus);
@@ -101,7 +101,7 @@ export default function Order() {
     </Link>
   ));
 
-  const onViewDetails = (purchase: OrderRequest) => {
+  const onViewDetails = (purchase: OrderRequestFull) => {
     navigate('/seller/order/detail', { state: { purchase } });
   };
 
@@ -127,7 +127,7 @@ export default function Order() {
         />
         <button
           onClick={handleSearch}
-          className='ml-2 p-2 bg-orange-500 text-white rounded-md'
+          className='ml-2 p-2 bg-red-500 text-white rounded-md'
         >
           Tìm
         </button>
@@ -162,57 +162,61 @@ export default function Order() {
       </div>
 
       <div>
-        {purchasesInCart?.map((purchase) => (
-          <div key={purchase.id} className='mt-6 rounded-lg border border-gray-300 bg-gradient-to-r from-blue-50 to-blue-100 p-6 shadow-lg transition duration-300 hover:shadow-2xl'>
-            <div className='flex justify-between items-center mb-4'>
-              <div>
-                <h3 className='text-xl font-bold text-blue-800'>{`Đơn hàng ID: ${purchase.id}`}</h3>
-                <p className='text-md text-blue-600'>{`Trạng thái: ${purchase.status}`}</p>
-                <p className='text-sm text-gray-500'>{`Ngày đặt: ${new Date(purchase.orderDate).toLocaleDateString()}`}</p>
-              </div>
-              <div className='flex flex-col space-y-4'>
-                <button className='bg-green-400 text-white rounded-full px-6 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
-                  Xem thông tin thanh toán
-                </button>
+  {purchasesInCart && purchasesInCart.length > 0 ? (
+    purchasesInCart.map((purchase) => (
+      <div key={purchase.id} className='mt-6 rounded-lg border border-gray-300 bg-gradient-to-r from-blue-50 to-blue-100 p-6 shadow-lg transition duration-300 hover:shadow-2xl'>
+        <div className='flex justify-between items-center mb-4'>
+          <div>
+            <h3 className='text-xl font-bold text-blue-800'>{`Đơn hàng ID: ${purchase.id}`}</h3>
+            <p className='text-md text-blue-600'>{`Trạng thái: ${purchase.status}`}</p>
+            <p className='text-sm text-gray-500'>{`Ngày đặt: ${new Date(purchase.orderDate).toLocaleDateString()}`}</p>
+          </div>
+          <div className='flex flex-col space-y-4'>
+            <button className='bg-green-400 text-white rounded-full px-6 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
+              Xem thông tin thanh toán
+            </button>
+          </div>
+        </div>
 
-              </div>
+        <div className='grid grid-cols-12 gap-4'>
+          <div className='col-span-6 flex items-center'>
+            <div className='flex-shrink-0 pr-3'>
+              <img src="https://blog.dktcdn.net/files/ban-hang-order.png" alt="" className='h-16 w-16 object-cover rounded' />
             </div>
-
-            <div className='grid grid-cols-12 gap-4'>
-              <div className='col-span-6 flex items-center'>
-                <div className='flex-shrink-0 pr-3'>
-                  <img src="https://blog.dktcdn.net/files/ban-hang-order.png" alt="" className='h-16 w-16 object-cover rounded' />
-                </div>
-
-              </div>
-              <div className='col-span-2 flex items-center justify-center text-lg font-bold'>
-                ₫{formatCurrency(purchase.totalMoney)}
-              </div>
-              <div className='col-span-1 flex items-center justify-center'>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${purchase.status === 'delivered' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'}`}>
-                  {purchase.status === 'delivered' ? 'Đã giao' : 'Chưa giao'}
-                </span>
-              </div>
-              <div className='col-span-2 flex items-center justify-center space-x-2'>
-                <button onClick={() => onViewDetails(purchase)} className='bg-orange-500 text-white rounded px-4 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
-                  Xem chi tiết
-                </button>
-                {purchase.status === 'waitForConfirmation' && (
+          </div>
+          <div className='col-span-2 flex items-center justify-center text-lg font-bold'>
+            ₫{formatCurrency(purchase.totalMoney)}
+          </div>
+          <div className='col-span-1 flex items-center justify-center'>
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${purchase.status === 'delivered' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'}`}>
+              {purchase.status === 'delivered' ? 'Đã giao' : 'Chưa giao'}
+            </span>
+          </div>
+          <div className='col-span-2 flex items-center justify-center space-x-2'>
+            <button onClick={() => onViewDetails(purchase)} className='bg-orange-500 text-white rounded px-4 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
+              Xem chi tiết
+            </button>
+            {purchase.status === 'waitForConfirmation' && (
+              <>
                 <button onClick={() => handleCancelOrder(purchase)} className='bg-red-500 text-white rounded px-4 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
                   Hủy đơn
                 </button>
-                 )}
-
-                {purchase.status === 'waitForConfirmation' && (
-                <button onClick={() => handleCancelOrder1(purchase)} className='bg-red-500 text-white rounded px-4 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
+                <button onClick={() => handleCancelOrder1(purchase)} className='bg-blue-500 text-white rounded px-4 py-2 text-sm font-semibold transition-transform transform hover:scale-105'>
                   Xác nhận đơn hàng
                 </button>
-                 )}
-              </div>
-            </div>
+              </>
+            )}
           </div>
-        ))}
+        </div>
       </div>
+    ))
+  ) : (
+    <div className='text-center text-gray-500 mt-6 text-lg font-semibold'>
+      Không có đơn hàng nào.
+    </div>
+  )}
+</div>
+
     </div>
   );
 }

@@ -77,10 +77,10 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           </button>
           <button
             className={clsx('h-8 px-4 text-center text-sm capitalize ', {
-              'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.createdAt),
-              'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.createdAt)
+              'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.id),
+              'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.id)
             })}
-            onClick={() => handleSort(sortBy.createdAt)}
+            onClick={() => handleSort(sortBy.id)}
           >
             Mới nhất
           </button>

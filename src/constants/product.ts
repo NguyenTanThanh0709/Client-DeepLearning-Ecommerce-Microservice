@@ -3,12 +3,13 @@
 // REMEMBER, in Typescript have const(mode public, private, readonly)
 
 type SortByProps = {
-  readonly [key in 'createdAt' | 'view' | 'sold' | 'price']: string
+  readonly [key in 'createdAt' | 'id' | 'view' | 'sold' | 'price']: string
 }
 // us can use type or interface, but ts did support type with as const
 // use readonly for sortBy
 export const sortBy = {
   createdAt: 'createdAt',
+  id: 'id',
   view: 'view',
   sold: 'sold',
   price: 'price',
